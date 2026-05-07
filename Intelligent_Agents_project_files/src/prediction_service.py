@@ -1,8 +1,10 @@
 import pandas as pd
 import joblib
 
+
 def predict_attrition(df, threshold=0.5):
     model = joblib.load("outputs/model.pkl")
+    df = df.copy()
     X = df.drop(columns=["Attrition"], errors='ignore')
     probs = model.predict_proba(X)[:, 1]
     df['Attrition_Risk'] = probs
